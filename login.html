@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="meApp">
+<head>
+    <title>后台管理系统 - 登录</title>
+    <meta charset="utf-8" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+
+    <script src="js/jquery-2.0.2.min.js"></script>
+    <script src="js/angular1.2.9.min.js"></script>
+
+    <script>
+        (function () {
+            var version = 3;
+            document.writeln('<link href="css/login.css?v=' + version + '" rel="stylesheet" />');
+            document.writeln('<script src="js/me-1.0.js?v=' + version + '"></scr' + 'ipt>');
+            document.writeln('<script src="js/Config.js?v=' + version + '"></scr' + 'ipt>');
+            document.writeln('<script src="js/Util.js?v=' + version + '"></scr' + 'ipt>');
+            document.writeln('<script src="js-ctrl/login.js?v=' + version + '"></scr' + 'ipt>');
+        })();
+    </script>
+
+    <script>
+        me.config({
+            container: "",
+            main: "",
+            path: "tpl/",
+            debug:Config.debug
+        });
+    </script>
+</head>
+<body ng-controller="me.ctrl">
+    <div ng-controller="login.ctrl">
+       <div class="login">
+           <div class="login-header clearfix">
+               <div class="login-header-left">
+                   <h2>后台管理系统</h2>
+                   <p>Backstage Management System</p>
+               </div>
+               <div class="login-head-right">
+                   客服电话：400-100-1234
+               </div>
+           </div>
+           <div class="login-main">
+               <div class="login-content warp">
+                   <form>
+                       <div class="login-form">
+                           <input type="text" class="input login-input margin-bottom20" placeholder="用户名" ng-model="params.account_phone" maxlength="11">
+                           <input type="password" class="input login-input margin-bottom20" placeholder="密码" ng-model="params.password">
+                           <div class="login-code clearfix margin-bottom20">
+                               <input type="text" class="input login-input input-w180" placeholder="验证码" ng-model="params.code">
+                               <!--<img class="login-code-img" src="images/login_code.png">-->
+                               <img class="login-code-img" ng-src="data:image/png;base64,{{code_img}}" ng-click="getGraphicVercode()"/>
+                           </div>
+                           <div class="login-remember">
+                               <label class="checkbox-inline">
+                                   <input type="checkbox" id="inlineCheckbox1" value="1" ng-model="rememberAccount"> 记住用户名
+                               </label>
+                               <a class="font-blue" ng-click="forgetPassword()">忘记密码 ?</a>
+                           </div>
+                           <input type="submit" class="com-btn btn-blue login-btn" value="登录" ng-click="login(params)">
+                       </div>
+                   </form>
+               </div>
+           </div>
+           <div class="login-foot">
+               <div class="warp">
+                   <div class="login-foot-main clearfix">
+                       <div class="login-foot-box clearfix">
+                           <div class="login-foot-info">
+                               <h3>WMS</h3>
+                               <p>一流团队  高质服务  让您用眼睛触摸蓝天</p>
+                           </div>
+                       </div>
+                       <div class="login-foot-box">
+                           <ul>
+                               <li>XXX有限公司</li>
+                               <li>公司官网：<a href="" target="_blank">www.xxx.com.cn</a></li>
+                               <li>E-Mail：<a href="mailto:xxx@xx.com">xxx@xx.com</a></li>
+                           </ul>
+                       </div>
+                       <div class="login-foot-box">
+                           <ul>
+                               <li>客服电话：</li>
+                               <li>传真： </li>
+                               <li>地址： </li>
+                           </ul>
+                       </div>
+                   </div>
+                   <p class="login-foot-bottom">COPYRIGHT © 2017 xxx有限公司 版权所有  浙ICP备12038124号</p>
+               </div>
+           </div>
+       </div>
+    </div>
+</body>
+</html>
+<script>
+    me.run('meApp', []);
+</script>

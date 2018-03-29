@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="meApp">
+<head>
+	<title>后台管理 - 首页</title>
+	<meta charset="utf-8" />
+    <!--[if IE ]>
+        <script>
+            if(window.alert("请使用Chrome浏览器访问该系统")){
+                location.href="http://rj.baidu.com/soft/detail/14744.html?ald";
+            }
+        </script>
+    <![endif]-->
+
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+    <script src="js/jquery-2.0.2.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/angular1.2.9.min.js"></script>
+
+    <script>
+        (function () {
+            var version = +new Date();
+            document.writeln('<link href="css/style.css?v=' + version + '" rel="stylesheet" />');
+            document.writeln('<link href="css/index.css?v=' + version + '" rel="stylesheet" />');
+            document.writeln('<script src="js/Util.js?v=' + version + '"></scr' + 'ipt>');
+            document.writeln('<script src="js/Config.js?v=' + version + '"></scr' + 'ipt>');
+            document.writeln('<script src="js/me-1.0.js?v=' + version + '"></scr' + 'ipt>');
+            document.writeln('<script src="js/me.global.js?v=' + version + '"></scr' + 'ipt>');
+            document.writeln('<script src="js/File.js?v=' + version + '"></scr' + 'ipt>');
+            document.writeln('<script src="js/Pagination.js?v=' + version + '"></scr' + 'ipt>');
+            document.writeln('<script src="js/menu.js?v=' + version + '"></scr' + 'ipt>');
+            document.writeln('<script src="js-ctrl/index.js?v=' + version + '"></scr' + 'ipt>');
+        })();
+    </script>
+
+    <!--fresco-->
+    <link href="fresco/css/fresco.css" rel="stylesheet" />
+    <script src="fresco/js/fresco.js"></script>
+  
+    <!--WdatePicker-->
+    <script src="datePicker/WdatePicker.js"></script>
+
+	<script>
+		me.config({
+			container: "#main_body",
+			main: "",
+			path: "tpl/",
+			scroller: "#main_body",
+			debug: Config.debug
+		});
+	</script>
+    <style>
+        .index_right {
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body ng-controller="me.ctrl">
+	<div ng-controller="index.ctrl">
+		<!-- 顶部导航条 -->
+        <div class="header clearfix">
+            <div class="head-left-huax">
+                <img src="images/logo.jpg" class="head-logo"/>
+                <div class="head-project">诚信招标管理控制台 V1.0</div>
+                <div class="head-company">山西壹嘉通有限公司</div>
+            </div>
+            <!--<div class="head-tab">
+                <ul class="nav nav-pills">
+                    <li class="btn-default" ng-click="changeTab(1)" ng-class="{'active':activeTab == 1}"><a><b>我的面板</b></a></li>
+                    <li class="btn-default" ng-click="changeTab(2)" ng-class="{'active':activeTab == 2}"><a><b>设置</b></a></li>
+                    <li class="btn-default" ng-click="changeTab(3)" ng-class="{'active':activeTab == 3}"><a><b>微信通</b></a></li>
+                    <li class="btn-default" ng-click="changeTab(4)" ng-class="{'active':activeTab == 4}"><a><b>内容</b></a></li>
+                    <li class="btn-default" ng-click="changeTab(5)" ng-class="{'active':activeTab == 5}"><a><b>会员</b></a></li>
+                    <li class="btn-default" ng-click="changeTab(6)" ng-class="{'active':activeTab == 6}"><a><b>广告</b></a></li>
+                </ul>
+            </div>-->
+            <div class="head-menu">
+                <div class="btn-group" style="margin-top: 10px;padding: 4px 0;">
+                    <button type="button" class="btn btn-default dropdown-toggle"
+                            style="background-color: transparent; border: none; color: white;"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span>欢迎：<b>{{global.login_data.wx_nickname}}</b></span>
+                        <span class="glyphicon glyphicon-triangle-bottom" style="margin-left: 5px;"></span>
+                    </button>
+                    <ul class="dropdown-menu" style="left:initial;right:0;">
+                        <li ng-click="changePassword()">
+                            <a href="javascript:void(0)" class="glyphicon glyphicon-user">
+                                <span style="position:relative;top:-2px;">修改密码</span>
+                            </a>
+                        </li>
+                        <li role="separator" class="divider ng-hide"></li>
+                        <li ng-click="exit()">
+                            <a href="javascript:void(0)" class="glyphicon glyphicon-log-out">
+                                <span style="position:relative;top:-2px;">退出登录</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+		<!--左边导航-->
+		<div class="index_left">
+            <ul class="menu">
+                <li ng-repeat-start="menu in menuList" ng-init="menu.index = $index" data-index="{{menu.index}}"
+                    ng-click="changeMenu(menu,$index,menu)"
+                    ng-class="{
+                        'toggle':!menu.toggle,
+                        'menu-title':menu.page_list,
+                        'menu-item':!menu.page_list,
+                        'active':activeSubMenuIndex==$index&&activeMenuIndex==menu.index}">
+                    <i class="flag" ng-class="{'no':!menu.page_list}"></i><span ng-bind="menu.page_name"></span>
+                </li>
+                <li ng-repeat-end ng-repeat="submenu in menu.page_list" data-index="{{menu.index}}"
+                    class="menu-item" ng-class="{active:activeSubMenuIndex==$index&&activeMenuIndex==menu.index}"
+                    ng-click="changeMenu(submenu,$index,menu)">
+                    <span>
+                        <span ng-bind="submenu.page_name"></span>
+                    </span>
+                </li>
+            </ul>
+		</div>
+
+		<!--右边主体-->
+		<div class="index_right">
+			<div id="main_body">
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<script>
+    me.run('meApp', []);
+    //菜单切换
+    $(".index_left").delegate(".menu-title", "click", function () {
+        $(".menu-item[data-index=" + $(this).data("index") + "]").slideToggle(200);
+    });
+</script>
