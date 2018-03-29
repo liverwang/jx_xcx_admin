@@ -1,0 +1,70 @@
+﻿<div ng-controller="system_enterprise_detail.ctrl">
+    <div class="modal fade" id="modal_system_enterprise_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">企业信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label require">企业名称：</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" placeholder="企业名称"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label require">注册地：</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" placeholder="注册地" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label require">注册资本：</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" placeholder="注册资本" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label require">法人：</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" placeholder="法人" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label require">联系人：</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" placeholder="联系人" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label require">联系电话：</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" placeholder="联系电话" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label require">资质：</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label ">详情：</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" rows="5" placeholder="详情"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-click="confirm(model)">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

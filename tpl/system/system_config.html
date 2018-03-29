@@ -1,0 +1,31 @@
+﻿<div ng-controller="system_config.ctrl">
+    <div class="form-inline clearfix">
+        <ol class="breadcrumb custom_border_bottom">
+            <li class="link">{{global.activeMenu.page_name}}</li>
+            <li class="active">{{global.activeSubMenu.page_name}}</li>
+        </ol>
+    </div>
+
+    <div class="container-fluid">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-4 control-label ">会员费用</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" placeholder="会员费用" ng-model="model.code" />
+                </div>
+                <div class="col-sm-4">
+                    <div class="btn btn-primary">确认</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label ">保函意向金</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" placeholder="保函意向金" ng-model="model.code" />
+                </div>
+                <div class="col-sm-4">
+                    <div class="btn btn-primary">确认</div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

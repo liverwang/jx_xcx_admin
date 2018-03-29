@@ -1,0 +1,100 @@
+﻿<div ng-controller="tender_list.ctrl">
+    <div class="form-inline clearfix">
+        <ol class="breadcrumb custom_border_bottom">
+            <li class="link">{{global.activeMenu.page_name}}</li>
+            <li class="active">{{global.activeSubMenu.page_name}}</li>
+        </ol>
+    </div>
+
+    <div class="container-fluid">
+        <div class="form-inline searchform clearfix">
+            <div class="form-group custom_margin_right_10">
+                <input type="text" class="form-control" placeholder="请输入您要搜索的关键词" ng-model="params.searchString" />
+            </div>
+            <div class="form-group custom_margin_right_10">
+                <div class="input-group">
+                    <input class="form-control" type="text" ng-model="params.begin_date" id="case_startTime" onclick="WdatePicker()" placeholder="开始时间" />
+                    <span class="input-group-addon" onclick="WdatePicker({ el: 'case_startTime' })">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                /
+                <div class="input-group">
+                    <input class="form-control" type="text" ng-model="params.end_date" id="case_endTime" onclick="WdatePicker()" placeholder="结束时间" />
+                    <span class="input-group-addon" onclick="WdatePicker({ el: 'case_endTime' })">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group custom_margin_right_10">
+                <select class="form-control">
+                    <option value="">-- 请选择类型 --</option>
+                </select>
+            </div>
+            <div class="form-group custom_margin_right_10">
+                <select class="form-control">
+                    <option value="">-- 请选择状态 --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <div class="btn btn-primary" ng-click="doSearch(params)">查询</div>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-hover table-condensed custom_margin_top_10">
+            <thead>
+                <tr class="active">
+                    <th class="inner_center">
+                        <label class="clearmargin" ng-click="changeAll()">
+                            <input type="checkbox" ng-model="checkAll" ng-checked="checkAll">
+                        </label>
+                    </th>
+                    <th class="inner_center">标题</th>
+                    <th class="inner_center">类型</th>
+                    <th class="inner_center">所在城市</th>
+                    <th class="inner_center">公告时间</th>
+                    <th class="inner_center">开标时间</th>
+                    <th class="inner_center custom_width_150">文件</th>
+                    <th class="inner_center" ng-if="params.source!='crawler'">交易方式</th>
+                    <th class="inner_center">状态</th>
+                    <th class="inner_center custom_width_100">操作</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="d in data||[1,2,3]">
+                <tr>
+                    <td class="inner_center custom_width_50">
+                        <label class="clearmargin" ng-click="changeRow(d)">
+                            <input type="checkbox" ng-model="d.checked" ng-checked="d.checked">
+                        </label>
+                    </td>
+                    <td class="inner_center">{{d.code}}</td>
+                    <td class="inner_center">{{d.code}}</td>
+                    <td class="inner_center">{{d.name}}</td>
+                    <td class="inner_center">{{d.code}}</td>
+                    <td class="inner_center">{{d.name}}</td>
+                    <td class="inner_center">
+                        <div class="btn btn-default btn-sm">清</div>
+                        <div class="btn btn-default btn-sm">招</div>
+                        <div class="btn btn-default btn-sm">澄</div>
+                    </td>
+                    <td class="inner_center" ng-if="params.source!='crawler'">{{d.name}}</td>
+                    <td class="inner_center">{{global.timeGMTToString(d.last_operation_time,"yyyy-MM-dd hh:ss")}}</td>
+                    <td class="inner_center">
+                        <span ng-show="params.source=='crawler'">
+                            <a class="link" ng-click="addModel(d,$index)">审核</a> |
+                        </span>
+                        <span ng-show="params.source!='crawler'">
+                            <a class="link" ng-click="addModel(d,$index)">编辑</a> |
+                        </span>
+                        <a class="link" ng-click="delModel(d,$index)">删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="form-inline clearfix">
+            <div class="btn btn-danger" ng-click="delBatchModel()">批量删除</div>
+            <div class="btn btn-warning" ng-click="delBatchModel()" ng-show="params=='crawler'">批量开放</div>
+            <div id="tender_crawler_list_pager" class="custom_float_right"></div>
+        </div>
+    </div>
+</div>

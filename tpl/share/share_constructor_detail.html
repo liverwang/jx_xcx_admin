@@ -1,0 +1,167 @@
+﻿<div ng-controller="share_constructor_detail.ctrl">
+    <div class="modal fade bs-example-modal-lg" id="modal_share_constructor_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">建造师信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label require">选择类型：</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" ng-model="model.type">
+                                    <option value="">-- 请选择类型 --</option>
+                                    <option value="1">个人应聘</option>
+                                    <option value="2">企业招聘</option>
+                                </select>
+                            </div>
+                        </div>
+                        <section ng-if="model.type==1">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label require">姓名：</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" type="text" placeholder="姓名" ng-model="model.name" />
+                                </div>
+                                <label class="col-sm-2 control-label require">性别：</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control">
+                                        <option value="">-- 请选择性别 --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label require">出生日期：</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" ng-model="params.end_date" id="case_endTime" onclick="WdatePicker()" placeholder="结束时间" />
+                                        <span class="input-group-addon" onclick="WdatePicker({ el: 'case_endTime' })">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label require">证书地址：</label>
+                                <div class="col-sm-5">
+                                    <select class="form-control">
+                                        <option value="">-- 省份 --</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-5">
+                                    <select class="form-control">
+                                        <option value="">-- 城市 --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label require">证书类别：</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control">
+                                        <option value="">-- 证书类别 --</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-2 control-label require">证书类型：</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control">
+                                        <option value="">-- 证书类型 --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label require">注册情况：</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control">
+                                        <option value="">-- 注册情况 --</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-2 control-label require">证书状态：</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control">
+                                        <option value="">-- 证书状态 --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label require">期望薪水：</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control">
+                                        <option value="">-- 期望薪水 --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </section>
+                        <section ng-if="model.type==2">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label require">您的姓名：</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" type="text" placeholder="姓名" ng-model="model.name" />
+                                </div>
+                                <label class="col-sm-2 control-label require">所需人才：</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control">
+                                        <option value="">-- 注册情况 --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label require">数量：</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" type="text" placeholder="数量" ng-model="model.name" />
+                                </div>
+                                <label class="col-sm-2 control-label require">价格：</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" type="text" placeholder="价格" ng-model="model.name" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label require">我的地址：</label>
+                                <div class="col-sm-5">
+                                    <select class="form-control">
+                                        <option value="">-- 省份 --</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-5">
+                                    <select class="form-control">
+                                        <option value="">-- 城市 --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label require">企业名称：</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" placeholder="企业名称" ng-model="model.name" />
+                                </div>
+                            </div>
+                        </section>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label ">其他说明：</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="5" placeholder="其他说明"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label ">附件：</label>
+                            <div class="col-sm-10">
+                                <div class="common-img img-rounded">
+                                    <img src="images/ic_attachment.png" onload="Util.fullImg(this)" title="点击添加图片" ng-click="uploadImage()">
+                                </div>
+                                <div class="common-img custom_background_contain" ng-repeat="d in model.imgs" ng-show="!d.is_delete"
+                                     ng-style="{'background-image':'url('+(global.res+d.imgurl)+')'}">
+                                    <img src="images/ic_delete.png" class="common-delete" title="删除" ng-click="delImg(d,$index)" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-click="confirm(model)">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

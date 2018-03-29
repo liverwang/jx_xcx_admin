@@ -1,0 +1,74 @@
+﻿<div ng-controller="system_enterprise_list.ctrl">
+    <div class="form-inline clearfix">
+        <ol class="breadcrumb custom_border_bottom">
+            <li class="link">{{global.activeMenu.page_name}}</li>
+            <li class="active">{{global.activeSubMenu.page_name}}</li>
+        </ol>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="panel panel-default">
+                    <table class="table table-hover ">
+                        <tr ng-repeat="d in data||[1,2,3]" ng-class="{'active':$index==1}">
+                            <td>
+                                企业级别
+                            </td>
+                            <td class="inner_center custom_width_100">
+                                300家
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="form-inline searchform" >
+                    <div class="form-group custom_float_right">
+                        <div class="btn btn-success" ng-click="addModel()">添加企业</div>
+                    </div>
+                </div>
+                <table class="table table-bordered table-hover table-condensed">
+                    <thead>
+                        <tr class="active">
+                            <th class="inner_center custom_width_50">序号</th>
+                            <th class="inner_center">企业名称</th>
+                            <th class="inner_center">注册地</th>
+                            <th class="inner_center">注册资金</th>
+                            <th class="inner_center">法人</th>
+                            <th class="inner_center">联系人</th>
+                            <th class="inner_center">联系电话</th>
+                            <th class="inner_center">企业资质</th>
+                            <th class="inner_center">企业人员</th>
+                            <th class="inner_center custom_width_100">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="d in data||[1,2,3]">
+                        <tr>
+                            <td class="inner_center">
+                                {{$index+1}}
+                            </td>
+                            <td class="inner_center"></td>
+                            <td class="inner_center"></td>
+                            <td class="inner_center"></td>
+                            <td class="inner_center"></td>
+                            <td class="inner_center"></td>
+                            <td class="inner_center"></td>
+                            <td class="inner_center"></td>
+                            <td class="inner_center link" ng-click="showUserList(d)">
+                                100
+                            </td>
+                            <td class="inner_center">
+                                <a class="link" ng-click="delModel(d,$index)">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="form-inline clearfix">
+                    <div id="system_enterprise_list_pager" class="custom_float_right"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

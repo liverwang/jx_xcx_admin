@@ -1,0 +1,89 @@
+﻿<div ng-controller="share_carpooling_detail.ctrl">
+    <div class="modal fade bs-example-modal-lg" id="modal_share_carpooling_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">开标拼车信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label require">发布类型：</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" ng-model="model.type">
+                                    <option value="">-- 请选择类型 --</option>
+                                    <option value="1">车主找人</option>
+                                    <option value="2">人找车主</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label require">出发地：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="出发地" ng-model="model.name" />
+                            </div>
+                            <label class="col-sm-2 control-label require">到达地：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="到达地" ng-model="model.name" />
+                            </div>
+                        </div>
+                        <section ng-if="model.type==1">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label require">出发日期：</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" ng-model="params.end_date" id="case_endTime" onclick="WdatePicker()" placeholder="结束时间" />
+                                        <span class="input-group-addon" onclick="WdatePicker({ el: 'case_endTime' })">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label require">车型：</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" type="text" placeholder="车型" ng-model="model.name" />
+                                </div>
+                                <label class="col-sm-2 control-label require">价格：</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" type="text" placeholder="价格" ng-model="model.name" />
+                                </div>
+                            </div>
+
+                        </section>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label require">联系姓名：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="联系姓名" ng-model="model.name" />
+                            </div>
+                            <label class="col-sm-2 control-label require">联系电话：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="联系电话" ng-model="model.name" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label require">绑定项目：</label>
+                            <div class="col-sm-4">
+                                <p class="form-control-static link">项目名称</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label ">其他说明：</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="5" placeholder="其他说明"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-click="confirm(model)">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

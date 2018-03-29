@@ -1,0 +1,69 @@
+﻿<div ng-controller="share_guarantee_list.ctrl">
+    <div class="form-inline clearfix">
+        <ol class="breadcrumb custom_border_bottom">
+            <li class="link">{{global.activeMenu.page_name}}</li>
+            <li class="active">{{global.activeSubMenu.page_name}}</li>
+        </ol>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        保函企业
+                        <div class="btn btn-primary btn-sm">+ 添加</div>
+                    </div>
+                    <table class="table table-hover table-condensed">
+                        <tr ng-repeat="d in data||[1,2,3]" ng-class="{'active':$index==1}">
+                            <td>
+                                <p class="text-info clearmargin">保函企业{{$index+1}}</p>
+                                <p class="text-muted clearmargin">最大担保额度：￥800</p>
+                            </td>
+                            <td>100个未处理</td>
+                            <td class="inner_center custom_width_100">
+                                <a class="link" ng-click="addModel(d,$index)">编辑</a> |
+                                <a class="link" ng-click="delModel(d,$index)">删除</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <table class="table table-bordered table-hover table-condensed">
+                    <thead>
+                        <tr class="active">
+                            <th class="inner_center custom_width_50">序号</th>
+                            <th class="inner_center">申请帐户</th>
+                            <th class="inner_center custom_width_100">申请保额</th>
+                            <th class="inner_center">申请时间</th>
+                            <th class="inner_center custom_width_100">联系电话</th>
+                            <th class="inner_center custom_width_100">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="d in data||[1,2,3]">
+                        <tr>
+                            <td class="inner_center">
+                                {{$index+1}}
+                            </td>
+                            <td>
+                                <p class="text-info clearmargin">admin</p>
+                                <p class="text-muted clearmargin">江西XXX建筑工程有限公司</p>
+                            </td>
+                            <td class="inner_center"></td>
+                            <td class="inner_center"></td>
+                            <td class="inner_center"></td>
+                            <td class="inner_center">
+                                <a class="link" ng-click="addModel(d,$index)">处理</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="form-inline clearfix">
+                    <div id="share_guarantee_list_pager" class="custom_float_right"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

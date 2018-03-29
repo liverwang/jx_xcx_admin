@@ -1,0 +1,53 @@
+﻿<div ng-controller="demo_list.ctrl">
+    <div class="form-inline clearfix">
+        <ol class="breadcrumb custom_border_bottom">
+            <li class="link">目录</li>
+            <li class="active">当前菜单</li>
+        </ol>
+    </div>
+
+    <div class="container-fluid">
+        <div class="form-inline searchform clearfix">
+            <div class="form-group custom_margin_right_10">
+                <input type="text" class="form-control" placeholder="请输入单位名称" ng-model="params.searchString" />
+            </div>
+            <div class="form-group">
+                <div class="btn btn-primary" ng-click="doSearch(params)">查询</div>
+            </div>
+            <div class="form-group custom_float_right">
+                <div class="btn btn-success" ng-click="addModel()">新建</div>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-hover table-condensed custom_margin_top_10">
+            <thead>
+                <tr class="active">
+                    <th class="inner_center">序号</th>
+                    <th class="inner_center">单位编号</th>
+                    <th class="inner_center">单位名称</th>
+                    <th class="inner_center">创建时间</th>
+                    <th class="inner_center">更新时间</th>
+                    <th class="inner_center custom_width_100">操作</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="d in data">
+                <tr>
+                    <td class="inner_center">
+                        {{$index+1}}
+                    </td>
+                    <td class="inner_center">{{d.code}}</td>
+                    <td class="inner_center">{{d.name}}</td>
+                    <td class="inner_center">{{global.timeGMTToString(d.create_time,"yyyy-MM-dd hh:ss")}}</td>
+                    <td class="inner_center">{{global.timeGMTToString(d.last_operation_time,"yyyy-MM-dd hh:ss")}}</td>
+                    <td class="inner_center">
+                        <a class="link" ng-click="addModel(d,$index)">编辑</a> |
+                        <a class="link" ng-click="delModel(d,$index)">删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="form-inline clearfix">
+            <div id="demo_list_pager" class="custom_float_right"></div>
+        </div>
+    </div>
+</div>

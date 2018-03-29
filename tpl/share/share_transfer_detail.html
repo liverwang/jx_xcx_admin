@@ -1,0 +1,71 @@
+﻿<div ng-controller="share_transfer_detail.ctrl">
+    <div class="modal fade bs-example-modal-lg" id="modal_share_transfer_detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">企业资质转让信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label require">发布类型：</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" ng-model="model.type">
+                                    <option value="">-- 请选择类型 --</option>
+                                    <option value="1">我是卖家</option>
+                                    <option value="2">我是买家</option>
+                                </select>
+                            </div>
+                        </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label require">资质等级：</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control">
+                                        <option value="">-- 企业资质 --</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-2 control-label require">资质类别：</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control">
+                                        <option value="">-- 资质类别 --</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label require">联系电话：</label>
+                            <div class="col-sm-4">
+                                <input  class="form-control" placeholder="联系电话"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label ">备注：</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="5" placeholder="其他说明"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label ">附件：</label>
+                            <div class="col-sm-10">
+                                <div class="common-img img-rounded">
+                                    <img src="images/ic_attachment.png" onload="Util.fullImg(this)" title="点击添加图片" ng-click="uploadImage()">
+                                </div>
+                                <div class="common-img custom_background_contain" ng-repeat="d in model.imgs" ng-show="!d.is_delete"
+                                     ng-style="{'background-image':'url('+(global.res+d.imgurl)+')'}">
+                                    <img src="images/ic_delete.png" class="common-delete" title="删除" ng-click="delImg(d,$index)" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-click="confirm(model)">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
