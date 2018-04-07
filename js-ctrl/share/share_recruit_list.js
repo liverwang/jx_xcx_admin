@@ -2,7 +2,7 @@
     var that = me.define("share_recruit_list", {
         ctrl: function () {
             that.$scope.params = me.param() || {};
-            //that.doSearch(that.$scope.params);
+            that.doSearch(that.$scope.params);
         },
 
         doSearch: function (params) {
@@ -15,11 +15,14 @@
                     Util.ajax({
                         method: "POST",
                         data: {
-                            center_name:params.searchString,
+                            searchString: params.searchString,
+                            job_type: params.job_type,
+                            status: params.status,
+                            create_time:params.create_time,
                             pageIndex: index,
                             pageSize: 10
                         },
-                        url: Util.getApiUrl("account/listCenter")
+                        url: Util.getApiUrl("account/listRecruitment")
                     }, function (data) {
                         if (index == 0) paper.updateCount(data.count);
                         that.$scope.data = data.list;
@@ -34,7 +37,7 @@
                 showType: 1,
                 style: "pop",
                 param: {
-                    model: model
+                    model: angular.copy(model)
                 }
             }).on("hide", function (data) {
                 if (!data) return;
@@ -52,9 +55,9 @@
                 Util.ajax({
                     method: "POST",
                     data: {
-                        center_id:model.center_id
+                        recruitment_id: model.recruitment_id
                     },
-                    url: Util.getApiUrl("account/delCenter")
+                    url: Util.getApiUrl("account/delRecruitment")
                 }, function (data) {
                     that.$scope.data.splice(index,1);
                 });

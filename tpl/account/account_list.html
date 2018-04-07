@@ -29,17 +29,12 @@
                 </div>
             </div>
             <div class="form-group custom_margin_right_10">
-                <select class="form-control">
-                    <option value="">-- 请选择会员类型 --</option>
-                </select>
-            </div>
-            <div class="form-group custom_margin_right_10">
-                <select class="form-control">
+                <select class="form-control" ng-model="params.user_status" ng-options="d.code as d.text for d in global.enumData.enumUserVipStatus">
                     <option value="">-- 请选择会员状态 --</option>
                 </select>
             </div>
             <div class="form-group custom_margin_right_10">
-                <select class="form-control">
+                <select class="form-control" ng-model="params.user_credit" ng-options="d.code as d.text for d in global.enumData.enumUserCredit">
                     <option value="">-- 请选择信用评级 --</option>
                 </select>
             </div>
@@ -59,25 +54,25 @@
                     <th class="inner_center">会员有效期</th>
                     <th class="inner_center">绑定企业</th>
                     <th class="inner_center">信用评级</th>
-                    <th class="inner_center custom_width_50">状态</th>
+                    <th class="inner_center custom_width_100">状态</th>
                     <th class="inner_center custom_width_100">操作</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="d in data||[1,2,3]">
+                <tr ng-repeat="d in data">
                     <td class="inner_center">
                         {{$index+1}}
                     </td>
-                    <td class="inner_center"></td>
-                    <td class="inner_center"></td>
-                    <td class="inner_center"></td>
-                    <td class="inner_center">{{global.timeGMTToString(d.last_operation_time,"yyyy-MM-dd hh:ss")}}</td>
-                    <td class="inner_center">{{global.timeGMTToString(d.last_operation_time,"yyyy-MM-dd hh:ss")}}</td>
-                    <td class="inner_center"></td>
-                    <td class="inner_center"></td>
-                    <td class="inner_center"></td>
+                    <td class="inner_center">{{d.account}}</td>
+                    <td class="inner_center">{{d.wx_nickname}}</td>
+                    <td class="inner_center">{{global.enumSex_map[d.wx_sex].text}}</td>
+                    <td class="inner_center">{{global.timeGMTToString(d.create_time,"yyyy-MM-dd hh:ss")}}</td>
+                    <td class="inner_center">{{global.timeGMTToString(d.vip_due_time,"yyyy-MM-dd hh:ss")}}</td>
+                    <td class="inner_center">{{d.company}}</td>
+                    <td class="inner_center">{{d.user_credit}}</td>
+                    <td class="inner_center">{{global.enumUserVipStatus_map[d.user_status].text}}</td>
                     <td class="inner_center">
-                        <a class="link" ng-click="disableModel(d,$index)">冻结</a> |
+                        <a class="link" ng-click="disableModel(d,$index)">{{d.user_status===1?"冻结":"解冻"}}</a> |
                         <a class="link" ng-click="addModel(d,$index)">查看</a>
                     </td>
                 </tr>

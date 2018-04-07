@@ -2,6 +2,12 @@
     me.global({
         timeGMTToString: function (str, format) {
             if (!str) return;
+
+            if (typeof str == "object")
+                return me.global.timespanToString(str.getTime(), format);
+            if (typeof str == "number")
+                return me.global.timespanToString(str, format);
+
             str = str.split(' ');
             var date_str = str[0];
             var time_str = "";
@@ -18,10 +24,18 @@
         dateToString: function (timespan, format) {
             if (!timespan) return "-";
 
-            var temp = /^\/Date\((\d+)\)\/$/i.exec(timespan);;
+            var temp = /^\/Date\((\d+)\)\/$/i.exec(timespan);
             if (temp) {
                 timespan = parseFloat(temp[1]);
+                return me.global.timespanToString(timespan, format);
             }
+            else {
+                return "-";
+            }
+        },
+
+        timespanToString: function (timespan, format) {
+            if (!timespan) return "--";
 
             var date = new Date(timespan);
             var o = {
@@ -39,7 +53,7 @@
             for (var k in o) {
                 if (new RegExp("(" + k + ")").test(format)) {
                     format = format.replace(RegExp.$1,
-						RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+                                  RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
                 }
             }
 
@@ -142,7 +156,7 @@
         },
 
         //获取枚举数据
-        getData: function (callback) {
+        getEnumData: function (callback) {
             Util.ajax({
                 method: "POST",
                 data: {},
@@ -202,6 +216,46 @@
             $(e.srcElement).parents(".panel:eq(0)").find(".panel-body").slideToggle(200);
             $(e.srcElement).parents(".panel:eq(0)").find(".panel_toggle").toggleClass("down");
         },
+
+        //查询省份数据
+        getProvince: function () {
+            Util.ajax({
+                method: "POST",
+                data: {},
+                url: Util.getApiUrl("data/listProvince")
+            }, function (data) {
+                me.global("province_dict", data);
+                me.global("province_dict_map", Util.toMap(data, "province_id"));
+            }, true);
+        },
+
+        //查询城市数据
+        getCity: function (province_id) {
+            Util.ajax({
+                method: "POST",
+                data: {
+                    province_id: province_id
+                },
+                url: Util.getApiUrl("data/listCity")
+            }, function (data) {
+                me.global("city_dict", data);
+                me.global("city_dict_map", Util.toMap(data, "city_id"));
+            }, true);
+        },
+
+        //查询区县数据
+        getArea: function (city_id) {
+            Util.ajax({
+                method: "POST",
+                data: {
+                    city_id: city_id
+                },
+                url: Util.getApiUrl("data/listArea")
+            }, function (data) {
+                me.global("area_dict", data);
+                me.global("area_dict_map", Util.toMap(data, "area_id"));
+            }, true);
+        },
     });
 
     if (!localStorage.getItem("login_data")) {
@@ -213,4 +267,14 @@
     /*加载默认数据*/
     me.global("login_data", localStorage["login_data"] ? JSON.parse(localStorage["login_data"]) : {});
     me.global("res", Config.res);
+
+    me.global("qualification_type_dict", [{
+        code: 1,
+        text: "我是买家",
+        key: "buyer"
+    }, {
+        code: 2,
+        text: "我是卖家",
+        key: "seller"
+    }])
 });

@@ -12,19 +12,15 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         保函企业
-                        <div class="btn btn-primary btn-sm">+ 添加</div>
+                        <!--<div class="btn btn-primary btn-sm">+ 添加</div>-->
                     </div>
                     <table class="table table-hover table-condensed">
-                        <tr ng-repeat="d in data||[1,2,3]" ng-class="{'active':$index==1}">
+                        <tr ng-repeat="d in companys" ng-class="{'active':$index==activeCompanyIndex}">
                             <td>
-                                <p class="text-info clearmargin">保函企业{{$index+1}}</p>
-                                <p class="text-muted clearmargin">最大担保额度：￥800</p>
+                                <p class="text-info clearmargin">{{d.caption}}</p>
+                                <p class="text-muted clearmargin">最大担保额度：￥{{d.max_guarantee_money}}</p>
                             </td>
-                            <td>100个未处理</td>
-                            <td class="inner_center custom_width_100">
-                                <a class="link" ng-click="addModel(d,$index)">编辑</a> |
-                                <a class="link" ng-click="delModel(d,$index)">删除</a>
-                            </td>
+                            <td>{{d.count}}个未处理</td>
                         </tr>
                     </table>
                 </div>
@@ -36,25 +32,25 @@
                             <th class="inner_center custom_width_50">序号</th>
                             <th class="inner_center">申请帐户</th>
                             <th class="inner_center custom_width_100">申请保额</th>
-                            <th class="inner_center">申请时间</th>
+                            <th class="inner_center custom_width_200">申请时间</th>
                             <th class="inner_center custom_width_100">联系电话</th>
                             <th class="inner_center custom_width_100">操作</th>
                         </tr>
                     </thead>
-                    <tbody ng-repeat="d in data||[1,2,3]">
-                        <tr>
+                    <tbody>
+                        <tr ng-repeat="d in data">
                             <td class="inner_center">
                                 {{$index+1}}
                             </td>
                             <td>
-                                <p class="text-info clearmargin">admin</p>
-                                <p class="text-muted clearmargin">江西XXX建筑工程有限公司</p>
+                                <p class="text-info clearmargin">{{d.account}}</p>
+                                <p class="text-muted clearmargin">{{d.address}}</p>
                             </td>
-                            <td class="inner_center"></td>
-                            <td class="inner_center"></td>
-                            <td class="inner_center"></td>
+                            <td class="inner_center">{{d.guarantee_money}}</td>
+                            <td class="inner_center">{{global.timeGMTToString(d.create_time,"yyyy-MM-dd hh:ss")}}</td>
+                            <td class="inner_center">{{d.linker_phone}}</td>
                             <td class="inner_center">
-                                <a class="link" ng-click="addModel(d,$index)">处理</a>
+                                <a class="link" ng-click="delModel(d,$index)">删除</a>
                             </td>
                         </tr>
                     </tbody>

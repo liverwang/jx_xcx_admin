@@ -174,22 +174,23 @@
             return map;
         },
 
-        doUploadFile: function (data, accept, maxSize,appUpload, callBack) {
-            //appUpload用来判断
-            var url = "upload/uploadfile";   //普通上传接口
-            var appUrl = "upload/uploadAppFile";    //app版本更新上传接口
-            if(appUpload){
-                url = appUrl;
-            }
+        doUploadFile: function (data, accept, maxSize, callBack, maxCount) {
             File.upload({
                 multi: true,
-                url: Util.getApiUrl(url),
+                url: Util.getApiUrl("upload/uploadfile"),
                 param: data,
                 accept: accept,
                 before: function (files) {
                     if (!maxSize) {
                         if (files[0].size > maxSize * 1024) {
                             Util.info("图像大小不能超过" + maxSize + "KB", 2);
+                            return false;
+                        }
+                    }
+
+                    if (maxCount) {
+                        if (files.length > maxCount) {
+                            Util.info("最多选择" + maxCount + "张图片");
                             return false;
                         }
                     }

@@ -10,7 +10,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="highlight inner_center">
-                        <h3>杭州经济开发区中心幼儿园建设工程</h3>
+                        <h3>{{model.project_caption}}</h3>
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -21,29 +21,42 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label require">招标单位名称：</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" type="text" placeholder="招标单位名称" ng-model="model.code" />
+                                        <input class="form-control" type="text" placeholder="招标单位名称" ng-model="model.project_company" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label require">所在地：</label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control" ng-model="model.province_id" ng-options="d.province_id as d.province_name for d in global.province_dict">
+                                            <option value="">-- 请选择省份 --</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <select class="form-control" ng-model="model.city_id" ng-options="d.city_id as d.city_name for d in global.city_dict">
+                                            <option value="">-- 请选择城市 --</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label require">本项目投资：</label>
                                     <div class="col-sm-4">
-                                        <input class="form-control" type="text" placeholder="本项目投资" ng-model="model.name" />
+                                        <input class="form-control" type="text" placeholder="本项目投资" ng-model="model.project_investment" />
                                     </div>
                                     <label class="col-sm-2 control-label require">审查方式：</label>
                                     <div class="col-sm-4">
-                                        <input class="form-control" type="text" placeholder="审查方式" ng-model="model.name" />
+                                        <input class="form-control" type="text" placeholder="审查方式" ng-model="model.review" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label require">企业资质类型：</label>
                                     <div class="col-sm-4">
-                                        <select class="form-control">
+                                        <select class="form-control" ng-model="model.company_qualification_type" ng-options="d.code as d.text for d in global.enumData.enumCompanyQualificationType">
                                             <option value="">-- 请选择企业资质类型 --</option>
                                         </select>
                                     </div>
                                     <label class="col-sm-2 control-label require">建造师等级：</label>
                                     <div class="col-sm-4">
-                                        <select class="form-control">
+                                        <select class="form-control" ng-model="model.constructor_level" ng-options="d.code as d.text for d in global.enumData.enumConstructorLevel">
                                             <option value="">-- 请选择建造师等级 --</option>
                                         </select>
                                     </div>
@@ -51,27 +64,27 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label require">资金落实：</label>
                                     <div class="col-sm-4">
-                                        <input class="form-control" type="text" placeholder="资金落实" ng-model="model.name" />
+                                        <input class="form-control" type="text" placeholder="资金落实" ng-model="model.money_status" />
                                     </div>
                                     <label class="col-sm-2 control-label require">招标代理：</label>
                                     <div class="col-sm-4">
-                                        <input class="form-control" type="text" placeholder="招标代理" ng-model="model.name" />
+                                        <input class="form-control" type="text" placeholder="招标代理" ng-model="model.bidding_agent" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label require">联系电话：</label>
                                     <div class="col-sm-4">
-                                        <input class="form-control" type="text" placeholder="联系电话" ng-model="model.name" />
+                                        <input class="form-control" type="text" placeholder="联系电话" ng-model="model.link_phone" />
                                     </div>
                                     <label class="col-sm-2 control-label require">要约价：</label>
                                     <div class="col-sm-4">
-                                        <input class="form-control" type="text" placeholder="要约价" ng-model="model.name" />
+                                        <input class="form-control" type="text" placeholder="要约价" ng-model="model.offer_price" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label require">保证金：</label>
                                     <div class="col-sm-4">
-                                        <input class="form-control" type="text" placeholder="保证金" ng-model="model.name" />
+                                        <input class="form-control" type="text" placeholder="保证金" ng-model="model.margin_price" />
                                     </div>
                                     <label class="col-sm-2 control-label require">保函：</label>
                                     <div class="col-sm-4">
@@ -81,13 +94,13 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label require">工期：</label>
                                     <div class="col-sm-4">
-                                        <input class="form-control" type="text" placeholder="工期" ng-model="model.name" />
+                                        <input class="form-control" type="text" placeholder="工期" ng-model="model.limit_project" />
                                     </div>
                                     <label class="col-sm-2 control-label require">下载截至日期：</label>
                                     <div class="col-sm-4">
                                         <div class="input-group">
-                                            <input class="form-control" type="text" ng-model="params.end_date" id="case_endTime" onclick="WdatePicker()" placeholder="结束时间" />
-                                            <span class="input-group-addon" onclick="WdatePicker({ el: 'case_endTime' })">
+                                            <input class="form-control" type="text" ng-model="model.download_stop_time" id="download_stop_time" onclick="WdatePicker()" placeholder="结束时间" />
+                                            <span class="input-group-addon" onclick="WdatePicker({ el: 'download_stop_time' })">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
                                         </div>
@@ -96,7 +109,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label require">其他要求：</label>
                                     <div class="col-sm-10">
-                                        <textarea class="form-control" rows="2" placeholder="其他要求"></textarea>
+                                        <textarea class="form-control" rows="2" placeholder="其他要求" ng-model="model.other_memo"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -104,32 +117,32 @@
                                     <div class="col-sm-10">
                                         <div class="input-group ">
                                             <span class="input-group-addon">清</span>
-                                            <input type="text" class="form-control" readonly>
-                                            <span class="input-group-addon">
-                                                <span class="tooltips glyphicon glyphicon-folder-open" ng-click="addFile()"></span>
+                                            <input type="text" class="form-control" readonly ng-value="getFileName(global.enumProjectResType_key_map.project_res_type_1.code)">
+                                            <span class="input-group-addon" ng-click="addFile(global.enumProjectResType_key_map.project_res_type_1.code)">
+                                                <span class="tooltips glyphicon glyphicon-folder-open"></span>
                                             </span>
-                                            <span class="input-group-addon">
-                                                <span class="tooltips glyphicon glyphicon-remove" ng-click="removeFile()"></span>
+                                            <span class="input-group-addon" ng-click="removeFile(global.enumProjectResType_key_map.project_res_type_1.code)">
+                                                <span class="tooltips glyphicon glyphicon-remove"></span>
                                             </span>
                                         </div>
                                         <div class="input-group custom_margin_top_10">
                                             <span class="input-group-addon">招</span>
-                                            <input type="text" class="form-control" readonly>
-                                            <span class="input-group-addon">
-                                                <span class="tooltips glyphicon glyphicon-folder-open" ng-click="addFile()"></span>
+                                            <input type="text" class="form-control" readonly ng-value="getFileName(global.enumProjectResType_key_map.project_res_type_2.code)">
+                                            <span class="input-group-addon" ng-click="addFile(global.enumProjectResType_key_map.project_res_type_2.code)">
+                                                <span class="tooltips glyphicon glyphicon-folder-open"></span>
                                             </span>
-                                            <span class="input-group-addon">
-                                                <span class="tooltips glyphicon glyphicon-remove" ng-click="removeFile()"></span>
+                                            <span class="input-group-addon" ng-click="removeFile(global.enumProjectResType_key_map.project_res_type_2.code)">
+                                                <span class="tooltips glyphicon glyphicon-remove"></span>
                                             </span>
                                         </div>
                                         <div class="input-group custom_margin_top_10">
                                             <span class="input-group-addon">澄</span>
-                                            <input type="text" class="form-control" readonly>
-                                            <span class="input-group-addon">
-                                                <span class="tooltips glyphicon glyphicon-folder-open" ng-click="addFile()"></span>
+                                            <input type="text" class="form-control" readonly ng-value="getFileName(global.enumProjectResType_key_map.project_res_type_3.code)">
+                                            <span class="input-group-addon" ng-click="addFile(global.enumProjectResType_key_map.project_res_type_3.code)">
+                                                <span class="tooltips glyphicon glyphicon-folder-open"></span>
                                             </span>
-                                            <span class="input-group-addon">
-                                                <span class="tooltips glyphicon glyphicon-remove" ng-click="removeFile()"></span>
+                                            <span class="input-group-addon" ng-click="removeFile(global.enumProjectResType_key_map.project_res_type_3.code)">
+                                                <span class="tooltips glyphicon glyphicon-remove"></span>
                                             </span>
                                         </div>
                                     </div>
@@ -148,15 +161,15 @@
                                     <label class="col-sm-2 control-label require">开标时间：</label>
                                     <div class="col-sm-4">
                                         <div class="input-group">
-                                            <input class="form-control" type="text" ng-model="params.end_date" id="case_endTime" onclick="WdatePicker()" placeholder="结束时间" />
-                                            <span class="input-group-addon" onclick="WdatePicker({ el: 'case_endTime' })">
+                                            <input class="form-control" type="text" ng-model="model.start_mark_time" id="start_mark_time" onclick="WdatePicker()" placeholder="结束时间" />
+                                            <span class="input-group-addon" onclick="WdatePicker({ el: 'start_mark_time' })">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
                                         </div>
                                     </div>
                                     <label class="col-sm-2 control-label require">开标地点：</label>
                                     <div class="col-sm-4">
-                                        <input class="form-control" type="text" placeholder="开标地点" ng-model="model.name" />
+                                        <input class="form-control" type="text" placeholder="开标地点" ng-model="model.start_mark_address" />
                                     </div>
                                 </div>
                             </form>
@@ -170,9 +183,18 @@
                         <div class="panel-body">
                             <form class="form-horizontal">
                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label require">公示时间：</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" ng-model="model.announcement_time" id="announcement_time" onclick="WdatePicker()" placeholder="公示时间" />
+                                            <span class="input-group-addon" onclick="WdatePicker({ el: 'announcement_time' })">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
                                     <label class="col-sm-2 control-label require">中标单位名称：</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="text" placeholder="中标单位名称" ng-model="model.name" />
+                                    <div class="col-sm-4">
+                                        <input class="form-control" type="text" placeholder="中标单位名称" ng-model="model.hit_mark_company" />
                                     </div>
                                 </div>
                             </form>
@@ -180,9 +202,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <div class="form-inline custom_float_left" ng-show="params.source=='crawler'">
+                    <div class="form-inline custom_float_left">
                         <div class="form-group">
-                            <select class="form-control">
+                            <select class="form-control" ng-model="model.project_type" ng-options="d.code as d.text for d in global.enumData.enumProjectType">
                                 <option value="">-- 请选择招标类型 --</option>
                             </select>
                         </div>
@@ -190,7 +212,7 @@
 
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                     <button type="button" class="btn btn-primary" ng-click="confirm(model)" ng-show="!params.source">确定</button>
-                    <button type="button" class="btn btn-primary" ng-click="confirm(model)" ng-show="params.source=='crawler'">通过并开放</button>
+                    <button type="button" class="btn btn-primary" ng-click="passModel(model)" ng-show="params.source=='crawler'">通过并开放</button>
                 </div>
             </div>
         </div>

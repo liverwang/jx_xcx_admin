@@ -2,7 +2,7 @@
     var that = me.define("share_transfer_list", {
         ctrl: function () {
             that.$scope.params = me.param() || {};
-            //that.doSearch(that.$scope.params);
+            that.doSearch(that.$scope.params);
         },
 
         doSearch: function (params) {
@@ -15,11 +15,12 @@
                     Util.ajax({
                         method: "POST",
                         data: {
-                            center_name:params.searchString,
+                            searchString: params.searchString,
+                            create_time:"",
                             pageIndex: index,
                             pageSize: 10
                         },
-                        url: Util.getApiUrl("account/listCenter")
+                        url: Util.getApiUrl("account/listQualification")
                     }, function (data) {
                         if (index == 0) paper.updateCount(data.count);
                         that.$scope.data = data.list;
@@ -34,7 +35,7 @@
                 showType: 1,
                 style: "pop",
                 param: {
-                    model: model
+                    model: angular.copy(model)
                 }
             }).on("hide", function (data) {
                 if (!data) return;

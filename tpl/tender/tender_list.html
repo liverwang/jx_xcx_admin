@@ -13,31 +13,39 @@
             </div>
             <div class="form-group custom_margin_right_10">
                 <div class="input-group">
-                    <input class="form-control" type="text" ng-model="params.begin_date" id="case_startTime" onclick="WdatePicker()" placeholder="开始时间" />
-                    <span class="input-group-addon" onclick="WdatePicker({ el: 'case_startTime' })">
+                    <input class="form-control" type="text" ng-model="params.search_start_mark_time" id="search_start_mark_time" onclick="WdatePicker()" placeholder="开始时间" />
+                    <span class="input-group-addon" onclick="WdatePicker({ el: 'search_start_mark_time' })">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
                 /
                 <div class="input-group">
-                    <input class="form-control" type="text" ng-model="params.end_date" id="case_endTime" onclick="WdatePicker()" placeholder="结束时间" />
-                    <span class="input-group-addon" onclick="WdatePicker({ el: 'case_endTime' })">
+                    <input class="form-control" type="text" ng-model="params.search_end_mark_time" id="search_end_mark_time" onclick="WdatePicker()" placeholder="结束时间" />
+                    <span class="input-group-addon" onclick="WdatePicker({ el: 'search_end_mark_time' })">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
             </div>
             <div class="form-group custom_margin_right_10">
-                <select class="form-control">
+                <select class="form-control" ng-model="params.project_type" ng-options="d.code as d.text for d in global.enumData.enumProjectType">
                     <option value="">-- 请选择类型 --</option>
                 </select>
             </div>
-            <div class="form-group custom_margin_right_10">
-                <select class="form-control">
+            <div class="form-group custom_margin_right_10" ng-show="params.source!='crawler'">
+                <select class="form-control" ng-model="params.project_status" ng-options="d.code as d.text for d in global.enumData.enumProjectStatus">
+                    <option value="">-- 请选择状态 --</option>
+                </select>
+            </div>
+            <div class="form-group custom_margin_right_10" ng-show="params.source=='crawler'">
+                <select class="form-control" ng-model="params.audit_status" ng-options="d.code as d.text for d in global.enumData.enumProjectAuditStatus">
                     <option value="">-- 请选择状态 --</option>
                 </select>
             </div>
             <div class="form-group">
                 <div class="btn btn-primary" ng-click="doSearch(params)">查询</div>
+            </div>
+            <div class="form-group custom_float_right">
+                <div class="btn btn-success" ng-click="addModel()">新增</div>
             </div>
         </div>
 
@@ -60,25 +68,25 @@
                     <th class="inner_center custom_width_100">操作</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="d in data||[1,2,3]">
+            <tbody ng-repeat="d in data">
                 <tr>
                     <td class="inner_center custom_width_50">
                         <label class="clearmargin" ng-click="changeRow(d)">
                             <input type="checkbox" ng-model="d.checked" ng-checked="d.checked">
                         </label>
                     </td>
-                    <td class="inner_center">{{d.code}}</td>
-                    <td class="inner_center">{{d.code}}</td>
-                    <td class="inner_center">{{d.name}}</td>
-                    <td class="inner_center">{{d.code}}</td>
-                    <td class="inner_center">{{d.name}}</td>
+                    <td class="inner_center">{{d.project_caption}}</td>
+                    <td class="inner_center">{{global.enumProjectType_map[d.project_type].text}}</td>
+                    <td class="inner_center">{{d.province_name}}/{{d.city_name}}</td>
+                    <td class="inner_center">{{global.timeGMTToString(d.announcement_time,"yyyy-MM-dd hh:ss")}}</td>
+                    <td class="inner_center">{{global.timeGMTToString(d.start_mark_time,"yyyy-MM-dd hh:ss")}}</td>
                     <td class="inner_center">
-                        <div class="btn btn-default btn-sm">清</div>
-                        <div class="btn btn-default btn-sm">招</div>
-                        <div class="btn btn-default btn-sm">澄</div>
+                        <div class="btn btn-default btn-sm custom_margin_right_10" ng-repeat="r in d.res_urls">
+                            <a ng-href="{{global.res+r.res_url}}" target="_blank">{{global.enumProjectResType_map[r.project_res_type].text}}</a>
+                        </div>
                     </td>
-                    <td class="inner_center" ng-if="params.source!='crawler'">{{d.name}}</td>
-                    <td class="inner_center">{{global.timeGMTToString(d.last_operation_time,"yyyy-MM-dd hh:ss")}}</td>
+                    <td class="inner_center" ng-if="params.source!='crawler'">{{global.enumProjectTradingWay_map[d.trading_way].text}}</td>
+                    <td class="inner_center">{{global.enumProjectAuditStatus_map[d.audit_status].text}}</td>
                     <td class="inner_center">
                         <span ng-show="params.source=='crawler'">
                             <a class="link" ng-click="addModel(d,$index)">审核</a> |

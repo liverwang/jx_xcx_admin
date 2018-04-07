@@ -2,7 +2,7 @@
     var that = me.define("share_carpooling_list", {
         ctrl: function () {
             that.$scope.params = me.param() || {};
-            //that.doSearch(that.$scope.params);
+            that.doSearch(that.$scope.params);
         },
 
         doSearch: function (params) {
@@ -15,11 +15,13 @@
                     Util.ajax({
                         method: "POST",
                         data: {
-                            center_name:params.searchString,
+                            searchString: params.searchString,
+                            mark_carpooling_type: "",
+                            start_time:"",
                             pageIndex: index,
                             pageSize: 10
                         },
-                        url: Util.getApiUrl("account/listCenter")
+                        url: Util.getApiUrl("account/listMarkCarpooling")
                     }, function (data) {
                         if (index == 0) paper.updateCount(data.count);
                         that.$scope.data = data.list;
@@ -29,12 +31,14 @@
         },
 
         addModel: function (model, index) {
-            model = model || {};
+            model = model || {
+                mark_carpooling_type:1
+            };
             me.show("share/share_carpooling_detail", {
                 showType: 1,
                 style: "pop",
                 param: {
-                    model: model
+                    model: angular.copy(model)
                 }
             }).on("hide", function (data) {
                 if (!data) return;
@@ -52,9 +56,9 @@
                 Util.ajax({
                     method: "POST",
                     data: {
-                        center_id:model.center_id
+                        mark_carpooling_id: model.mark_carpooling_id
                     },
-                    url: Util.getApiUrl("account/delCenter")
+                    url: Util.getApiUrl("account/delMarkCarpooling")
                 }, function (data) {
                     that.$scope.data.splice(index,1);
                 });

@@ -2,7 +2,30 @@
     var that = me.define("system_enterprise_list", {
         ctrl: function () {
             that.$scope.params = me.param() || {};
-            //that.doSearch(that.$scope.params);
+            that.getCompanyTotal();
+        },
+
+        getCompanyTotal: function () {
+            Util.ajax({
+                method: "POST",
+                data: {},
+                url: Util.getApiUrl("account/companyLevelTongji")
+            }, function (data) {
+                that.$scope.totalCompany = data;
+
+                if (data && data.length) {
+                    var activeTotalIndex = that.$scope.activeTotalIndex || 0;
+                    if (activeTotalIndex > data.length)
+                        activeTotalIndex = 0;
+                    that.selectTotal(data[activeTotalIndex], activeTotalIndex);
+                }
+            });
+        },
+
+        selectTotal: function (total,index) {
+            that.$scope.params.company_level = total.company_level;
+            that.$scope.activeTotalIndex = index;
+            that.doSearch(that.$scope.params);
         },
 
         doSearch: function (params) {
@@ -15,11 +38,12 @@
                     Util.ajax({
                         method: "POST",
                         data: {
-                            center_name:params.searchString,
+                            company_level: params.company_level,
+                            searchString: params.searchString,
                             pageIndex: index,
                             pageSize: 10
                         },
-                        url: Util.getApiUrl("account/listCenter")
+                        url: Util.getApiUrl("account/listCompany")
                     }, function (data) {
                         if (index == 0) paper.updateCount(data.count);
                         that.$scope.data = data.list;
@@ -29,16 +53,18 @@
         },
 
         addModel: function (model, index) {
-            model = model || {};
+            model = model || {
+                company_level: that.$scope.params.company_level
+            };
             me.show("system/system_enterprise_detail", {
                 showType: 1,
                 style: "pop",
                 param: {
-                    model: model
+                    model: angular.copy(model)
                 }
             }).on("hide", function (data) {
                 if (!data) return;
-                that.$scope.pager.toPage(that.$scope.pager.pageIndex);
+                that.getCompanyTotal();
             });
         },
 
@@ -52,11 +78,11 @@
                 Util.ajax({
                     method: "POST",
                     data: {
-                        center_id:model.center_id
+                        company_id: model.company_id
                     },
-                    url: Util.getApiUrl("account/delCenter")
+                    url: Util.getApiUrl("account/delCompany")
                 }, function (data) {
-                    that.$scope.data.splice(index,1);
+                    that.getCompanyTotal();
                 });
             });
         },

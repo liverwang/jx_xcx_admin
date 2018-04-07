@@ -39,6 +39,9 @@
     <!--WdatePicker-->
     <script src="datePicker/WdatePicker.js"></script>
 
+    <!--switch-->
+    <link href="http://www.bootcss.com/p/bootstrap-switch/static/stylesheets/bootstrapSwitch.css" rel="stylesheet" />
+    <script src="http://www.bootcss.com/p/bootstrap-switch/static/js/bootstrapSwitch.js"></script>
 	<script>
 		me.config({
 			container: "#main_body",
@@ -79,7 +82,7 @@
                     <button type="button" class="btn btn-default dropdown-toggle"
                             style="background-color: transparent; border: none; color: white;"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span>欢迎：<b>{{global.login_data.wx_nickname}}</b></span>
+                        <span>欢迎：<b>{{global.login_data.wx_nickname||global.login_data.account}}</b></span>
                         <span class="glyphicon glyphicon-triangle-bottom" style="margin-left: 5px;"></span>
                     </button>
                     <ul class="dropdown-menu" style="left:initial;right:0;">

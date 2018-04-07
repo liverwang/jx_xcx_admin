@@ -34,6 +34,9 @@
             <div class="form-group">
                 <div class="btn btn-primary" ng-click="doSearch(params)">查询</div>
             </div>
+            <div class="form-group custom_float_right">
+                <div class="btn btn-success" ng-click="addModel()">新建</div>
+            </div>
         </div>
 
 
@@ -56,27 +59,28 @@
                     <th class="inner_center custom_width_100">操作</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="d in data||[1,2,3]">
-                <tr>
+            <tbody>
+                <tr ng-repeat="d in data">
                     <td class="inner_center custom_width_50">
                         <label class="clearmargin" ng-click="changeRow(d)">
                             <input type="checkbox" ng-model="d.checked" ng-checked="d.checked">
                         </label>
                     </td>
-                    <td class="inner_center">{{d.code}}</td>
-                    <td class="inner_center">{{d.name}}</td>
-                    <td class="inner_center">{{d.code}}</td>
+                    <td class="inner_center">{{d.company_caption}}</td>
+                    <td class="inner_center">{{global.enumConstructorType_map[d.constructor_type].text}}</td>
+                    <td class="inner_center">{{d.province_name}} {{d.city_name}}</td>
                     <td>
-                        <p class="text-info clearmargin">18912621256</p>
-                        <p class="text-muted clearmargin">江苏省苏州市高新区</p>
+                        <p class="text-info clearmargin">{{d.phone}}</p>
+                        <p class="text-muted clearmargin"></p>
                     </td>
-                    <td >
-                        <p class="text-info clearmargin">二级建造师</p>
-                        <p class="text-muted clearmargin">数量：10</p>
+                    <td>
+                        <p class="text-info clearmargin" ng-show="d.constructor_type==1">{{global.enumCertificateType_map[d.certificate_type].text}}</p>
+                        <p class="text-info clearmargin" ng-show="d.constructor_type==2">{{global.enumNeedTalent_map[d.need_talent].text}}</p>
+                        <p class="text-muted clearmargin">数量：{{d.need_count||1}}</p>
                     </td>
-                    <td class="inner_center">{{d.name}}</td>
-                    <td class="inner_center">{{d.name}}</td>
-                    <td class="inner_center">{{global.timeGMTToString(d.last_operation_time,"yyyy-MM-dd hh:ss")}}</td>
+                    <td class="inner_center">{{d.price||global.enumConstructorSalary_map[d.salary].text}}</td>
+                    <td class="inner_center">{{global.timeGMTToString(d.create_time,"yyyy-MM-dd hh:ss")}}</td>
+                    <td class="inner_center">{{d.other_memo}}</td>
                     <td class="inner_center">
                         <a class="link" ng-click="addModel(d,$index)">编辑</a> |
                         <a class="link" ng-click="delModel(d,$index)">删除</a>

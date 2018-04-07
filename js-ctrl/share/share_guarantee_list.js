@@ -2,7 +2,29 @@
     var that = me.define("share_guarantee_list", {
         ctrl: function () {
             that.$scope.params = me.param() || {};
-            //that.doSearch(that.$scope.params);
+            that.getGuaranteeCompanys();
+        },
+
+        getGuaranteeCompanys: function () {
+            Util.ajax({
+                method: "POST",
+                data: {},
+                url: Util.getApiUrl("account/baohanTongji")
+            }, function (data) {
+                that.$scope.companys = data;
+                if (data && data.length) {
+                    var activeCompanyIndex = that.$scope.activeCompanyIndex || 0;
+                    if (activeCompanyIndex > data.length)
+                        activeCompanyIndex = 0;
+                    that.selectCompany(data[activeCompanyIndex], activeCompanyIndex);
+                }
+            });
+        },
+
+        selectCompany: function (company, index) {
+            that.$scope.params.company_id = company.company_id;
+            that.$scope.activeCompanyIndex = index;
+            that.doSearch(that.$scope.params);
         },
 
         doSearch: function (params) {
@@ -15,11 +37,11 @@
                     Util.ajax({
                         method: "POST",
                         data: {
-                            center_name:params.searchString,
+                            company_id: params.company_id,
                             pageIndex: index,
                             pageSize: 10
                         },
-                        url: Util.getApiUrl("account/listCenter")
+                        url: Util.getApiUrl("account/listGuaranteeLog")
                     }, function (data) {
                         if (index == 0) paper.updateCount(data.count);
                         that.$scope.data = data.list;
@@ -34,7 +56,7 @@
                 showType: 1,
                 style: "pop",
                 param: {
-                    model: model
+                    model: angular.copy(model)
                 }
             }).on("hide", function (data) {
                 if (!data) return;
@@ -52,11 +74,11 @@
                 Util.ajax({
                     method: "POST",
                     data: {
-                        center_id:model.center_id
+                        guarantee_log_id: model.guarantee_log_id
                     },
-                    url: Util.getApiUrl("account/delCenter")
+                    url: Util.getApiUrl("account/delGuaranteeLog")
                 }, function (data) {
-                    that.$scope.data.splice(index,1);
+                    that.getGuaranteeCompanys();
                 });
             });
         }

@@ -34,6 +34,9 @@
             <div class="form-group">
                 <div class="btn btn-primary" ng-click="doSearch(params)">查询</div>
             </div>
+            <div class="form-group custom_float_right">
+                <div class="btn btn-success" ng-click="addModel()">新建</div>
+            </div>
         </div>
 
         <table class="table table-bordered table-hover table-condensed custom_margin_top_10">
@@ -46,7 +49,7 @@
                     </th>
                     <th class="inner_center">发布帐户</th>
                     <th class="inner_center">类型</th>
-                    <th class="inner_center">所在城市</th>
+                    <th class="inner_center">资质等级</th>
                     <th class="inner_center">企业资质</th>
                     <th class="inner_center">联系电话</th>
                     <th class="inner_center">发布时间</th>
@@ -54,7 +57,7 @@
                     <th class="inner_center custom_width_100">操作</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="d in data||[1,2,3]">
+            <tbody ng-repeat="d in data">
                 <tr>
                     <td class="inner_center custom_width_50">
                         <label class="clearmargin" ng-click="changeRow(d)">
@@ -62,15 +65,15 @@
                         </label>
                     </td>
                     <td>
-                        <p class="text-info clearmargin">admin</p>
-                        <p class="text-muted clearmargin">江西XXX建筑工程有限公司</p>
+                        <p class="text-info clearmargin">{{d.account}}</p>
+                        <p class="text-muted clearmargin">{{d.address}}</p>
                     </td>
-                    <td class="inner_center">{{d.code}}</td>
-                    <td class="inner_center">{{d.name}}</td>
-                    <td class="inner_center">{{d.code}}</td>
-                    <td class="inner_center"></td>
-                    <td class="inner_center">{{d.name}}</td>
-                    <td class="inner_center">{{global.timeGMTToString(d.last_operation_time,"yyyy-MM-dd hh:ss")}}</td>
+                    <td class="inner_center">{{global.enumQualificationType_map[d.qualification_type].text}}</td>
+                    <td class="inner_center">{{global.enumQualificationType_map[d.qualification_level].text}}</td>
+                    <td class="inner_center">{{global.enumQualificationType_map[d.company_type].text}}</td>
+                    <td class="inner_center">{{d.linker_phone}}</td>
+                    <td class="inner_center">{{global.timeGMTToString(d.create_time,"yyyy-MM-dd hh:ss")}}</td>
+                    <td class="inner_center">{{d.memo}}</td>
                     <td class="inner_center">
                         <a class="link" ng-click="addModel(d,$index)">编辑</a> |
                         <a class="link" ng-click="delModel(d,$index)">删除</a>

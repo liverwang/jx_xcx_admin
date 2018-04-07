@@ -11,19 +11,19 @@
             <div class="form-group">
                 <label class="col-sm-4 control-label ">会员费用</label>
                 <div class="col-sm-4">
-                    <input class="form-control" type="text" placeholder="会员费用" ng-model="model.code" />
+                    <input class="form-control" type="text" placeholder="会员费用" ng-model="model.vip_price" />
                 </div>
                 <div class="col-sm-4">
-                    <div class="btn btn-primary">确认</div>
+                    <div class="btn btn-primary" ng-click="confirm(model)">确认</div>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label ">保函意向金</label>
                 <div class="col-sm-4">
-                    <input class="form-control" type="text" placeholder="保函意向金" ng-model="model.code" />
+                    <input class="form-control" type="text" placeholder="保函意向金" ng-model="model.guarantee_price" />
                 </div>
                 <div class="col-sm-4">
-                    <div class="btn btn-primary">确认</div>
+                    <div class="btn btn-primary" ng-click="confirm(model)">确认</div>
                 </div>
             </div>
         </form>

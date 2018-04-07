@@ -2,7 +2,7 @@
     var that = me.define("account_list", {
         ctrl: function () {
             that.$scope.params = me.param() || {};
-            //that.doSearch(that.$scope.params);
+            that.doSearch(that.$scope.params);
         },
 
         doSearch: function (params) {
@@ -15,11 +15,14 @@
                     Util.ajax({
                         method: "POST",
                         data: {
-                            center_name:params.searchString,
+                            company_id: params.enterprise && params.enterprise.company_id,
+                            searchString: params.searchString,
+                            user_role: "",
+                            user_status:"",
                             pageIndex: index,
                             pageSize: 10
                         },
-                        url: Util.getApiUrl("account/listCenter")
+                        url: Util.getApiUrl("account/listUser")
                     }, function (data) {
                         if (index == 0) paper.updateCount(data.count);
                         that.$scope.data = data.list;
@@ -46,17 +49,19 @@
             me.show("modal", {
                 showType: 1,
                 style: "pop",
-                param: "是否冻结当前数据?"
+                param: "是否" + (model.user_status === 1?"冻结":"解冻") + "当前数据?"
             }).on("hide", function (data) {
                 if (!data) return;
                 Util.ajax({
                     method: "POST",
                     data: {
-                        center_id:model.center_id
+                        user_id: model.user_id,
+                        user_status: model.user_status === 1 ? 2 : 1
                     },
-                    url: Util.getApiUrl("account/delCenter")
+                    url: Util.getApiUrl("account/changeUserStatus")
                 }, function (data) {
-                    that.$scope.data.splice(index,1);
+                    Util.info("操作成功",true);
+                    that.$scope.pager.toPage(that.$scope.pager.pageIndex);
                 });
             });
         }

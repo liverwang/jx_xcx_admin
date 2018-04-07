@@ -34,6 +34,9 @@
             <div class="form-group">
                 <div class="btn btn-primary" ng-click="doSearch(params)">查询</div>
             </div>
+            <div class="form-group custom_float_right">
+                <div class="btn btn-success" ng-click="addModel()">新建</div>
+            </div>
         </div>
 
         <table class="table table-bordered table-hover table-condensed custom_margin_top_10">
@@ -51,39 +54,37 @@
                     <th class="inner_center custom_width_150">联系方式</th>
                     <th class="inner_center">发布时间</th>
                     <th class="inner_center custom_width_100">人数</th>
-                    <th class="inner_center">备注</th>
                     <th class="inner_center custom_width_100">操作</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="d in data||[1,2,3]">
-                <tr>
+            <tbody>
+                <tr ng-repeat="d in data">
                     <td class="inner_center">
                         <label class="clearmargin" ng-click="changeRow(d)">
                             <input type="checkbox" ng-model="d.checked" ng-checked="d.checked">
                         </label>
                     </td>
                     <td>
-                        <p class="text-info clearmargin">admin</p>
-                        <p class="text-muted clearmargin">江西XXX建筑工程有限公司</p>
+                        <p class="text-info clearmargin">{{d.account}}</p>
+                        <p class="text-muted clearmargin">{{d.company}}</p>
                     </td>
-                    <td class="inner_center">{{d.code}}</td>
+                    <td class="inner_center">{{global.enumMarkCarpoolingType_map[d.mark_carpooling_type].text}}</td>
                     <td>
-                        <p class="text-muted clearmargin">...出发</p>
-                        <p class="text-muted clearmargin">出发时间：2018-03-25</p>
-                        <p class="text-muted clearmargin">价格：￥300</p>
-                    </td>
-                    <td>
-                        <p class="text-muted clearmargin">出发地：杭州</p>
-                        <p class="text-muted clearmargin">到达地：苏州</p>
-                        <p class="text-muted clearmargin">车型：商务车</p>
+                        <p class="text-muted clearmargin">{{d.start_address}}</p>
+                        <p class="text-muted clearmargin">出发时间：{{global.timeGMTToString(d.start_time,"yyyy-MM-dd")}}</p>
+                        <p class="text-muted clearmargin" ng-show="d.price">价格：￥{{d.price}}</p>
                     </td>
                     <td>
-                        <p class="text-muted clearmargin">老司机</p>
-                        <p class="text-muted clearmargin">18912621256</p>
+                        <p class="text-muted clearmargin">出发地：{{d.start_address}}</p>
+                        <p class="text-muted clearmargin">到达地：{{d.end_address}}</p>
+                        <p class="text-muted clearmargin" ng-show="d.car_type">车型：{{global.enumMarkCarType_map[d.car_type].text||d.car_type}}</p>
                     </td>
-                    <td class="inner_center">{{global.timeGMTToString(d.last_operation_time,"yyyy-MM-dd hh:ss")}}</td>
-                    <td class="inner_center">2/3</td>
-                    <td class="inner_center"></td>
+                    <td>
+                        <p class="text-muted clearmargin">{{d.linker_name}}</p>
+                        <p class="text-muted clearmargin">{{d.linker_phone}}</p>
+                    </td>
+                    <td class="inner_center">{{global.timeGMTToString(d.create_time,"yyyy-MM-dd hh:ss")}}</td>
+                    <td class="inner_center">{{d.carrying_count}}</td>
                     <td class="inner_center">
                         <a class="link" ng-click="addModel(d,$index)">编辑</a> |
                         <a class="link" ng-click="delModel(d,$index)">删除</a>

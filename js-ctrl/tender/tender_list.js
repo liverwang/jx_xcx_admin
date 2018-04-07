@@ -2,7 +2,7 @@
     var that = me.define("tender_list", {
         ctrl: function () {
             that.$scope.params = me.param() || {};
-            //that.doSearch(that.$scope.params);
+            that.doSearch(that.$scope.params);
         },
 
         doSearch: function (params) {
@@ -15,11 +15,16 @@
                     Util.ajax({
                         method: "POST",
                         data: {
-                            center_name:params.searchString,
+                            searchString: params.searchString,
+                            project_status: params.project_status,
+                            project_type: params.project_type,
+                            audit_status: params.audit_status || (params.source ? '' : me.global.enumProjectAuditStatus_key_map.audit_status_2.code),
+                            start_mark_time: $("#search_start_mark_time").val(),
+                            end_mark_time: $("#search_end_mark_time").val(),
                             pageIndex: index,
                             pageSize: 10
                         },
-                        url: Util.getApiUrl("account/listCenter")
+                        url: Util.getApiUrl("account/listProject")
                     }, function (data) {
                         if (index == 0) paper.updateCount(data.count);
                         that.$scope.data = data.list;
@@ -34,7 +39,7 @@
                 showType: 1,
                 style: "pop",
                 param: {
-                    model: model,
+                    model: angular.copy(model),
                     source:that.$scope.params.source
                 }
             }).on("hide", function (data) {
@@ -53,9 +58,9 @@
                 Util.ajax({
                     method: "POST",
                     data: {
-                        center_id:model.center_id
+                        project_id: model.project_id
                     },
-                    url: Util.getApiUrl("account/delCenter")
+                    url: Util.getApiUrl("account/delProject")
                 }, function (data) {
                     that.$scope.data.splice(index,1);
                 });

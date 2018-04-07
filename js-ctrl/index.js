@@ -1,15 +1,9 @@
 ﻿(function () {
 	var that = me.define("index", {
 	    ctrl: function () {
-	        //me.global.getEnumData(function () {
-	        //  that.initMenu();
-	        //});
-	        that.initMenu();
-	        that.changeTab(1);
-	    },
-
-	    changeTab: function (tab) {
-	        that.$scope.activeTab = tab;
+	        me.global.getEnumData(function () {
+	            that.initMenu();
+	        });
 	    },
 
 	    initMenu: function () {

@@ -6,10 +6,10 @@
     }, {
         page_name: "招标信息管理",
         page_src: "tender/tender_list"
-    }, {
+    }/*, {
         page_name: "废标单位统计",
         page_src: "tender/tender_scrap_list"
-    }]
+    }*/]
 }, {
     page_name: "资源共享管理",
     page_list: [{

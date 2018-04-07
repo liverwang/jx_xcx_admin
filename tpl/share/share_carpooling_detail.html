@@ -13,68 +13,76 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label require">发布类型：</label>
                             <div class="col-sm-4">
-                                <select class="form-control" ng-model="model.type">
+                                <select class="form-control" ng-model="model.mark_carpooling_type" ng-options="d.code as d.text for d in global.enumData.enumMarkCarpoolingType">
                                     <option value="">-- 请选择类型 --</option>
-                                    <option value="1">车主找人</option>
-                                    <option value="2">人找车主</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label require">出发地：</label>
                             <div class="col-sm-4">
-                                <input class="form-control" type="text" placeholder="出发地" ng-model="model.name" />
+                                <input class="form-control" type="text" placeholder="出发地" ng-model="model.start_address" />
                             </div>
                             <label class="col-sm-2 control-label require">到达地：</label>
                             <div class="col-sm-4">
-                                <input class="form-control" type="text" placeholder="到达地" ng-model="model.name" />
+                                <input class="form-control" type="text" placeholder="到达地" ng-model="model.end_address" />
                             </div>
                         </div>
-                        <section ng-if="model.type==1">
+                        <section ng-show="model.mark_carpooling_type==1">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label require">出发日期：</label>
                                 <div class="col-sm-4">
                                     <div class="input-group">
-                                        <input class="form-control" type="text" ng-model="params.end_date" id="case_endTime" onclick="WdatePicker()" placeholder="结束时间" />
-                                        <span class="input-group-addon" onclick="WdatePicker({ el: 'case_endTime' })">
+                                        <input class="form-control" type="text" ng-model="params.carpooling_start_time" id="carpooling_start_time" onclick="WdatePicker()" placeholder="出发日期" />
+                                        <span class="input-group-addon" onclick="WdatePicker({ el: 'carpooling_start_time' })">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
                                     </div>
+                                </div>
+                                <label class="col-sm-2 control-label require">搭载人数：</label>
+                                <div class="col-sm-4">
+                                    <input class="form-control" type="text" placeholder="到达地" ng-model="model.carrying_count" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label require">车型：</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="text" placeholder="车型" ng-model="model.name" />
+                                    <select class="form-control" ng-model="model.car_type" ng-options="d.code as d.text for d in global.enumData.enumMarkCarType">
+                                        <option value="">-- 请选择类型 --</option>
+                                    </select>
                                 </div>
                                 <label class="col-sm-2 control-label require">价格：</label>
                                 <div class="col-sm-4">
-                                    <input class="form-control" type="text" placeholder="价格" ng-model="model.name" />
+                                    <input class="form-control" type="text" placeholder="价格" ng-model="model.price" />
                                 </div>
                             </div>
-
                         </section>
                         <div class="form-group">
                             <label class="col-sm-2 control-label require">联系姓名：</label>
                             <div class="col-sm-4">
-                                <input class="form-control" type="text" placeholder="联系姓名" ng-model="model.name" />
+                                <input class="form-control" type="text" placeholder="联系姓名" ng-model="model.linker_name" />
                             </div>
                             <label class="col-sm-2 control-label require">联系电话：</label>
                             <div class="col-sm-4">
-                                <input class="form-control" type="text" placeholder="联系电话" ng-model="model.name" />
+                                <input class="form-control" type="text" placeholder="联系电话" ng-model="model.linker_phone" />
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label require">绑定项目：</label>
                             <div class="col-sm-4">
-                                <p class="form-control-static link">项目名称</p>
+                                <div class="input-group ">
+                                    <input type="text" class="form-control" readonly placeholder="请选择项目">
+                                    <span class="input-group-addon">
+                                        <span class="tooltips glyphicon glyphicon-folder-open" ng-click="addFile()"></span>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label ">其他说明：</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" rows="5" placeholder="其他说明"></textarea>
+                                <textarea class="form-control" rows="5" placeholder="其他说明" ng-model="model.memo"></textarea>
                             </div>
                         </div>
                     </form>

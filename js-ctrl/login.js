@@ -1,7 +1,7 @@
 ﻿(function () {
 	var that = me.define("login", {
 		ctrl: function () {
-		    //that.getGraphicVercode();
+		    that.getGraphicVercode();
 		    if (localStorage.getItem("account_phone")) {
 		        that.$scope.params = {
 		            account_phone: localStorage.getItem("account_phone") || ""
@@ -11,10 +11,6 @@
 		},
 
 		login: function (params) {
-		    localStorage["login_data"] = JSON.stringify({
-		    });
-		    location.replace("index.html");
-		    return;
 		    if (!params) {
 		        Util.info("请输入登录信息", 2);
 		        return;
@@ -35,7 +31,7 @@
 		    Util.ajax({
 		        method: "POST",
 		        data: {
-		            account_phone: params.account_phone,
+		            account: params.account_phone,
 		            code_id: that.$scope.code_id,
 		            code: that.$scope.params.code,
 		            password: params.password

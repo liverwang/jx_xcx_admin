@@ -11,12 +11,12 @@
             <div class="col-sm-3">
                 <div class="panel panel-default">
                     <table class="table table-hover ">
-                        <tr ng-repeat="d in data||[1,2,3]" ng-class="{'active':$index==1}">
+                        <tr ng-repeat="d in totalCompany" ng-class="{'active':$index==activeTotalIndex}" ng-click="selectTotal(d,$index)">
                             <td>
-                                企业级别
+                                {{global.enumCompanyLevel_map[d.company_level].text}}
                             </td>
                             <td class="inner_center custom_width_100">
-                                300家
+                                {{d.count}}家
                             </td>
                         </tr>
                     </table>
@@ -43,22 +43,23 @@
                             <th class="inner_center custom_width_100">操作</th>
                         </tr>
                     </thead>
-                    <tbody ng-repeat="d in data||[1,2,3]">
-                        <tr>
+                    <tbody>
+                        <tr ng-repeat="d in data">
                             <td class="inner_center">
                                 {{$index+1}}
                             </td>
-                            <td class="inner_center"></td>
-                            <td class="inner_center"></td>
-                            <td class="inner_center"></td>
-                            <td class="inner_center"></td>
-                            <td class="inner_center"></td>
-                            <td class="inner_center"></td>
-                            <td class="inner_center"></td>
+                            <td class="inner_center">{{d.caption}}</td>
+                            <td class="inner_center">{{d.regist_address}}</td>
+                            <td class="inner_center">{{d.regist_capital}}</td>
+                            <td class="inner_center">{{d.head_user}}</td>
+                            <td class="inner_center">{{d.linker_name}}</td>
+                            <td class="inner_center">{{d.linker_phone}}</td>
+                            <td class="inner_center">{{d.qualification}}</td>
                             <td class="inner_center link" ng-click="showUserList(d)">
-                                100
+                                {{d.people_count}}
                             </td>
                             <td class="inner_center">
+                                <a class="link" ng-click="addModel(d,$index)">编辑</a> |
                                 <a class="link" ng-click="delModel(d,$index)">删除</a>
                             </td>
                         </tr>
